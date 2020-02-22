@@ -1,0 +1,35 @@
+javascript:
+    var report_code = $("#report_export_code").val();
+    var is_buildings_scouted = $("#attack_spy_building_data").length;
+    var village_id = $(".village_anchor").eq(1).attr("data-id");
+    var object = {};
+    if (is_buildings_scouted) {
+        var data = JSON.parse($("#attack_spy_building_data")[0].value);
+        for (var i = 0; i < data.length; i++) {
+            Object.defineProperty(object, data[i].name, {value:data[i].level});
+        }
+        if (object.Wall) {
+            wall_level = "Fal szint: " + object.Wall;
+        } else {
+            wall_level = "Fal szint: " + "0";
+        }
+    } else {
+        wall_level = "Nincs kikémlelt fal!";
+    }
+
+    let report = report_code + wall_level;
+    function createNote() {
+        let promise =  new Promise(function(resolve, reject) {
+            TribalWars.post("api", {ajaxaction: "village_note_edit"}, {"village_id": village_id, "note": report, resolve, reject})
+        })
+        promise.then(
+            function(result) {
+                UI.SuccessMessage("A falu sikeresen fel lett címkézve!", 1500);
+            },
+            function(error) {    
+                UI.ErrorMessage("A falu nem lett felcímkézve, próbáld újra!", 1500);
+            }
+        );
+    }
+    createNote();
+void(0);
