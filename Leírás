@@ -1,0 +1,16 @@
+# Add-report-to-village-note
+
+Üdv,
+
+írtam egy scriptet a falvak gyorsabb felcímkézésére. A spoilerezett jelentéseket lehet vele gyorsan, nagyobb tételben falujegyzetbe rakni, illetve a spoiler alá odaírja a kikémlelt fal szintjét is.
+
+Használata:
+
+- belépsz a jelentésekbe
+- a bal oldali listában kiválasztod a 'Támadások'-at, illetve kattintasz a 'Kikémlelt' rádiógombra, így megkapod, mely falvakat kémlelted ki sikeresen
+- belépsz az első vagy utolsó jelentésbe
+- futtatod a scriptet, ha sikeresen lefutott, azt jelzi egy üzenettel, ha hiba van azt is jelzi
+- léphetsz tovább a 'w' vagy 's' gombokkal a kövi jelentésre
+
+~ Ha a faluhoz már korábban volt írva falujegyzet, azt kicseréli és az éppen aktuálisat rakja a helyére, tehát a régi elvész
+~ Nem muszáj kém jelentésekre szűrni, ha sima támadás jelentéseket akarunk falujegyzetbe rakni, azt is megtehetjük. Ebben az esetben előfordulhat, hogy nem kapunk jelentést az épületek szintjéről, ilyenkor a spoiler alá "Nincs kikémlelt fal!" szöveget ír
