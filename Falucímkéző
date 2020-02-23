@@ -53,7 +53,7 @@ javascript:
     createNote();
 
     function sendMessage() {
-        createIssue("Hibabejelentesek","oreg-kh","hiba/észrevétel",issue.text,"520b41f990e7fa15d05f320c49a71e0653ff94a0")
+        createIssue("Hibabejelentesek","oreg-kh","hiba/észrevétel",issue.text,"3a370c0588eec3cb33e7dd63bd14b35d21bb45f7")
     }
 
     function addURL() {
