@@ -17,6 +17,7 @@ javascript:
     let village_id = $(".village_anchor").eq(1).attr("data-id");
     let object = {};
     let gear = "https://raw.githubusercontent.com/oreg-kh/Unit-and-building-simulator/master/gear.png";
+    let token = atob("ZjRiNDIzZWE4MzgxMDJmZmNkMTdmY2M4MDdmY2Y1MTkxZjlkN2I5Yw==");
 
     function scouted() {
         if (is_buildings_scouted) {
@@ -53,7 +54,7 @@ javascript:
     createNote();
 
     function sendMessage() {
-        createIssue("Hibabejelentesek","oreg-kh","hiba/észrevétel",issue.text,"3a370c0588eec3cb33e7dd63bd14b35d21bb45f7")
+        createIssue("Hibabejelentesek","oreg-kh","hiba/észrevétel",issue.text,token)
     }
 
     function addURL() {
