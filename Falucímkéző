@@ -1,21 +1,21 @@
 javascript:
     var player = game_data.player.name;
     var world = game_data.world;
-    var script = {
+    let script = {
         name: "Add report to village note",
         version: "v1.0"
     }
-    var issue = {
+    let issue = {
         text: ["|Player|World|Script name|Script version|",
                "|---|---|---|---|",
                `|${player}|${world}|${script.name}|${script.version}|`,
                "",
                "Issue:"].join("\n")
     };
-    var report_code = $("#report_export_code").val();
-    var is_buildings_scouted = $("#attack_spy_building_data").length;
-    var village_id = $(".village_anchor").eq(1).attr("data-id");
-    var object = {};
+    let report_code = $("#report_export_code").val();
+    let is_buildings_scouted = $("#attack_spy_building_data").length;
+    let village_id = $(".village_anchor").eq(1).attr("data-id");
+    let object = {};
     let gear = "https://raw.githubusercontent.com/oreg-kh/Unit-and-building-simulator/master/gear.png";
 
     function scouted() {
@@ -53,20 +53,8 @@ javascript:
     createNote();
 
     function sendMessage() {
-        createIssue("Hibabejelentesek","oreg-kh","hiba/észrevétel",issue.text,"0c2fbfee27f207b19f06dde2707ba97ff53e351c")
+        createIssue("Hibabejelentesek","oreg-kh","hiba/észrevétel",issue.text,"520b41f990e7fa15d05f320c49a71e0653ff94a0")
     }
-
-    sideBarHTML = `
-        <div class="gear" onclick="openNav()"><img src=${gear}></div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <textarea id="issueText" placeholder="Hiba leírása..." rows="10" cols="50"></textarea>
-            <button id="sendIssue" type="button" onclick="sendMessage()">Küldés</button>
-            </br>
-            <textarea id="imageURL" placeholder="Kép link" rows="1" cols="50"></textarea>
-            <button id="addURL" type="button" onclick="addURL()">Hozzáadás</button>
-        </div>
-    `;
 
     function addURL() {
         var issueText = $("#issueText");
@@ -110,85 +98,93 @@ javascript:
             duration: durationMs,
             step: (angle) => {
                 $(".gear img").css({
-                    transform: 'rotate(' + angle + 'deg)'
+                    transform: `rotate(${angle}deg)`
                 });
             }
         });
     }
 
+    sideBarHTML = `
+        <div class="gear" onclick="openSideBar()"><img src=${gear}></div>
+        <div id="mySidenav" class="sidenav">
+            <a class="closeButton" onclick="closeSideBar()">&times</a>
+            <textarea id="issueText" placeholder="Hiba leírása..." rows="10" cols="50"></textarea>
+            <button id="sendIssue" type="button" onclick="sendMessage()">Küldés</button>
+            </br>
+            <textarea id="imageURL" placeholder="Kép url" rows="1" cols="50"></textarea>
+            <button id="addURL" type="button" onclick="addURL()">Hozzáadás</button>
+        </div>
+    `;
+
     function createSideBar() {
         $("body").append(sideBarHTML);
     }
 
-    function openNav() {
+    function openSideBar() {
         spinMainIcon(500, -180);
         $("#mySidenav").width(390);
     }
 
-    function closeNav() {
+    function closeSideBar() {
         spinMainIcon(500, 180);
         $("#mySidenav").width(0);
     }
-createSideBar()
 
-// style hozzáadása a HTML-hez
-function initCss(css) {
-    $(`<style>${css}</style>`).appendTo("body");
-}
+    function initCss(css) {
+        $(`<style>${css}</style>`).appendTo("body");
+    }
 
-initCss(`
-    .sidenav {
-        height: 100%;
-        width: 0px;
-        position: fixed;
-        z-index: 19;
-        top: 35px;
-        left: 0px;
-        background-color: #111;
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-    }
-    .sidenav a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-    }
-    .sidenav a:hover {
-        color: #f1f1f1;
-    }
-    .sidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 0px;
-        font-size: 36px;
-        margin-left: 50px;
-    }
-    @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-    }
-    .gear img {
-        z-index: 12000;
-        position: absolute;
-        top: 3px;
-        cursor: pointer;
-	    width: 45px;
-	    height: 45px;
-    }
-    textarea {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    button#sendIssue, button#addURL {
-        display: block;
-        margin-left: auto;
-        margin-right: 6.5px; 
-        cursor: pointer;
-    }
-`)
+    initCss(`
+        .sidenav {
+            height: 100%;
+            width: 0px;
+            position: fixed;
+            z-index: 19;
+            top: 35px;
+            left: 0px;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        .sidenav .closeButton {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        .gear img {
+            z-index: 12000;
+            position: absolute;
+            top: 3px;
+            cursor: pointer;
+	        width: 45px;
+	        height: 45px;
+        }
+        textarea {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button#sendIssue, button#addURL {
+            display: block;
+            margin-left: auto;
+            margin-right: 6.5px;
+            cursor: pointer;
+        }
+    `)
+    createSideBar()
 void(0);
