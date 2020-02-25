@@ -58,14 +58,14 @@ javascript:
     }
 
     function addURL() {
-        var issueText = $("#issueText");
-        var imageURL = $("#imageURL").val();
+        var issueText = $("#issue");
+        var imageURL = $("#image").val();
         issueText.val(issueText.val() + addBBcodeToURL(imageURL));
         clearURL();
     }
 
     function clearURL() {
-        return $("#imageURL").val("");
+        return $("#image").val("");
     }
 
     function addBBcodeToURL(url) {
@@ -98,7 +98,7 @@ javascript:
         $({deg: 0}).animate({deg: deg}, {
             duration: durationMs,
             step: (angle) => {
-                $(".gear img").css({
+                $("#gear img").css({
                     transform: `rotate(${angle}deg)`
                 });
             }
@@ -106,14 +106,31 @@ javascript:
     }
 
     sideBarHTML = `
-        <div class="gear" onclick="openSideBar()"><img src=${gear}></div>
-        <div id="mySidenav" class="sidenav">
-            <a class="closeButton" onclick="closeSideBar()">&times</a>
-            <textarea id="issueText" placeholder="Hiba leírása..." rows="10" cols="50"></textarea>
-            <button id="sendIssue" type="button" onclick="sendMessage()">Küldés</button>
-            </br>
-            <textarea id="imageURL" placeholder="Kép url" rows="1" cols="50"></textarea>
-            <button id="addURL" type="button" onclick="addURL()">Hozzáadás</button>
+        <div id="gear" onclick="openSideBar()">
+            <img src=${gear}>
+        </div>
+        <div class="sidenav">
+            <div class="sidenav-container">
+                <div id="closeButton">
+                    <a onclick="closeSideBar()">&times</a>
+                </div>
+                <div id="guide">
+                    <p>Itt tudod bejelenteni, ha hibát vagy eltérést tapasztalsz a script működésében.</p>
+                </div>
+                <div id="issueText">
+                    <textarea id="issue" placeholder="Hiba leírása..." rows="10" cols="50"></textarea>
+                </div>
+                <div id="sendIssue">
+                    <button type="button" onclick="sendMessage()">Küldés</button>
+                </div>
+                </br>
+                <div id="imageURL">
+                    <textarea id="image" placeholder="Kép url" rows="1" cols="50"></textarea>
+                </div>
+                <div id="addURL">
+                    <button type="button" onclick="addURL()">Hozzáadás</button>
+                </div>
+            </div>
         </div>
     `;
 
@@ -123,12 +140,12 @@ javascript:
 
     function openSideBar() {
         spinMainIcon(500, -180);
-        $("#mySidenav").width(390);
+        $(".sidenav").width(390);
     }
 
     function closeSideBar() {
         spinMainIcon(500, 180);
-        $("#mySidenav").width(0);
+        $(".sidenav").width(0);
     }
 
     function initCss(css) {
@@ -148,6 +165,11 @@ javascript:
             transition: 0.5s;
             padding-top: 60px;
         }
+        .sidenav-container {
+            display: block;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
         .sidenav a {
             padding: 8px 8px 8px 32px;
             text-decoration: none;
@@ -159,7 +181,10 @@ javascript:
         .sidenav a:hover {
             color: #f1f1f1;
         }
-        .sidenav .closeButton {
+        #guide p {
+            color: #818181;
+        }
+        #closeButton a {
             cursor: pointer;
             position: absolute;
             top: 0;
@@ -167,7 +192,7 @@ javascript:
             font-size: 36px;
             margin-left: 50px;
         }
-        .gear img {
+        #gear img {
             z-index: 12000;
             position: absolute;
             top: 3px;
@@ -175,15 +200,7 @@ javascript:
 	        width: 45px;
 	        height: 45px;
         }
-        textarea {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button#sendIssue, button#addURL {
-            display: block;
-            margin-left: auto;
-            margin-right: 6.5px;
+        #sendIssue button, #addURL button {
             cursor: pointer;
         }
     `)
