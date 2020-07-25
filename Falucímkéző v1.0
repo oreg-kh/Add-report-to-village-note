@@ -13,22 +13,21 @@ javascript:
                "Issue:"].join("\n")
     };
     let report_code = $("#report_export_code").val();
-    let is_buildings_scouted = $("#attack_spy_building_data").length;
+    let is_scouted = $("#attack_spy_building_data").length;
     let village_id = $(".village_anchor").eq(1).attr("data-id");
-    let object = {};
     let gear = "https://raw.githubusercontent.com/oreg-kh/Unit-and-building-simulator/master/gear.png";
     let token = atob("ZjRiNDIzZWE4MzgxMDJmZmNkMTdmY2M4MDdmY2Y1MTkxZjlkN2I5Yw==");
+    var key;
 
     function scouted() {
-        if (is_buildings_scouted) {
+	    if (is_scouted) {
             var data = JSON.parse($("#attack_spy_building_data")[0].value);
-            for (var i = 0; i < data.length; i++) {
-                Object.defineProperty(object, data[i].name, {value:data[i].level});
-            }
-            if (object.Wall) {
-                wall_level = "Fal szint: " + object.Wall;
-            } else {
-                wall_level = "Fal szint: " + "0";
+            for (key in data) {
+                if (data[key].id == "wall") {
+                    wall_level = "Fal szint: " + data[key].level;
+                } else {
+                    wall_level = "Fal szint: 0";
+                }
             }
         } else {
             wall_level = "Nincs kikémlelt fal!";
