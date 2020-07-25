@@ -3,7 +3,7 @@ javascript:
     var world = game_data.world;
     let script = {
         name: "Add report to village note",
-        version: "v1.0"
+        version: "v1.1"
     }
     let issue = {
         text: ["|Player|World|Script name|Script version|",
@@ -20,7 +20,7 @@ javascript:
     var key;
 
     function scouted() {
-	    if (is_scouted) {
+		if (is_scouted) {
             var data = JSON.parse($("#attack_spy_building_data")[0].value);
             for (key in data) {
                 if (data[key].id == "wall") {
