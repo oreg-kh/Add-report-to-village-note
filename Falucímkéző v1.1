@@ -20,20 +20,20 @@ javascript:
     var key;
 
     function scouted() {
-    if (is_scouted) {
-        var data = JSON.parse($("#attack_spy_building_data")[0].value);
-        for (key in data) {
-            if (data[key].id == "wall") {
-                wall_level = "Fal szint: " + data[key].level;
-            } else {
-                wall_level = "Fal szint: 0";
+        if (is_scouted) {
+            var data = JSON.parse($("#attack_spy_building_data")[0].value);
+            for (key in data) {
+                if (data[key].id == "wall") {
+                    wall_level = "Fal szint: " + data[key].level;
+                } else {
+                    wall_level = "Fal szint: 0";
+                }
             }
+        } else {
+            wall_level = "Nincs kikémlelt fal!";
         }
-    } else {
-        wall_level = "Nincs kikémlelt fal!";
+        return wall_level;
     }
-    return wall_level;
-}
 
     async function createNote() {
         var wall_level = await scouted();
