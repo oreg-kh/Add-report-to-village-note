@@ -3,7 +3,7 @@ javascript:
     var world = game_data.world;
     let script = {
         name: "Add report to village note",
-        version: "v1.1"
+        version: "v1.2"
     }
     let issue = {
         text: ["|Player|World|Script name|Script version|",
@@ -28,11 +28,71 @@ javascript:
                 } else {
                     wall_level = "Fal szint: 0";
                 }
+                if (data[key].id == "storage") {
+                    storage = "Raktár kapacitás: " + capacity(data[key].level);
+                }
+                if (data[key].id == "hide") {
+                    hide = "Rejtekhely kapacitás: " + hiddenResources(data[key].level);
+                }
+                if (data[key].id == "market") {
+                    market = "Maximális szállítási mennyiség: " + maximum_transport_amount(data[key].level);
+                }
             }
+            note = {
+                text: [`${wall_level}`,
+                       `\n`,
+                       `${storage}`,
+                       `\n`,
+                       `${hide}`,
+                       `\n`,
+                       `${market}`].join('')
+            };
         } else {
-            wall_level = "Nincs kikémlelt fal!";
+            note = {
+                text: [`Nincs kikémlelt fal!`,
+                       `\n`,
+                       `Nincs kikémlelt raktár!`,
+                       `\n`,
+                       `Nincs kikémlelt rejtekhely!`,
+                       `\n`,
+                       `Nincs kikémlelt piac!`].join('')
+            };
         }
-        return wall_level;
+        return note.text;
+    }
+
+    function capacity(warehouse_level) {
+        text = roundToNearestInteger(Math.pow(1.2294934, warehouse_level - 1) * 1000);
+        return text;
+    }
+
+    function hiddenResources(hide_level) {
+        text = Math.pow((4/3), hide_level - 1) * 150;
+        if (hide_level > 7) {
+            text = roundToNearestFive(text);
+        } else {
+            text = roundToNearestInteger(text);
+        }
+        return text;
+    }
+
+    function maximum_transport_amount(market_level) {
+        if (market_level >= 10) {
+            text = Math.pow(market_level - 10, 2) + 10;
+        } else if (market_level == "") {
+            text = 0;
+        } else {
+            text = market_level;
+        }
+        return text * 1000;
+    }
+
+    function roundToNearestInteger(number) {
+        return Math.round(number);
+    }
+
+    function roundToNearestFive(number) {
+        return Math.ceil(number/5)*5;
     }
 
     async function createNote() {
